@@ -17,6 +17,9 @@ class Game():
 
         
         self.display_board()
+
+        self.import_fen("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
+        self.display_board()
     
 
     def create_board(self):                 #creates board with initial state
@@ -43,7 +46,10 @@ class Game():
                 print("Game ended")
                 break
         
-            
-                
+    def import_fen(self,fen):
+
+        self.board.clear()
+        self.board.set_fen(fen)      
+
 
 g = Game()
