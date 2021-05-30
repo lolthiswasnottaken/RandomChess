@@ -10,16 +10,14 @@ import time
 
 
 class Game():
-    def __init__(self):
-        self.create_board()
 
-        self.make_n_random_moves(2)
+    
+    def __init__(self):
+        self.game_num = 1
 
         
-        self.display_board()
-
-        self.import_fen("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
-        self.display_board()
+        self.play_game()
+        
     
 
     def create_board(self):                 #creates board with initial state
@@ -43,13 +41,44 @@ class Game():
         for i in range(n):
             self.make_move()
             if self.board.is_game_over():
+                
                 print("Game ended")
                 break
+        self.game_num += 1
+
+    def save_game(self):                    #save game as svg
+
+        boardsvg = chess.svg.board(board=self.board)
+        file = open('board_images/game#{}.svg'.format(self.game_num), "w")
+        file.write(boardsvg)
+        file.close()
+
         
-    def import_fen(self,fen):
+    def import_fen(self,fen):               #import any FEN
 
-        self.board.clear()
-        self.board.set_fen(fen)      
+        self.board.reset()
+        self.board.set_fen(fen)
+
+    def reset_board(self):
+        self.board.reset()      
+
+    def play_game(self):                    #play the game with functions above in __init__()
+
+        self.create_board() #create board first
+
+        
+        self.import_fen("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
+        self.save_game()
+        self.display_board()
+
+        self.reset_board()
+        self.make_n_random_moves(300)
+        self.save_game()
+
+        
 
 
-g = Game()
+
+
+if __name__ == "__main__":
+    g = Game()
