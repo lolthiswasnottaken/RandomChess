@@ -13,6 +13,7 @@ game_pgn = []
 legal_moves= [1]
 moves = 1
 game_num= 0
+
 while 1:
   
         
